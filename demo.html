@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+
+    <head></head>
+    
+    <body>
+    
+        <script type="text/javascript" src="lib/require/require.js"></script>
+        <script type="text/javascript;version=1.7">
+        
+            require.config({
+                baseUrl: 'src'
+            });
+
+            require(['RollingYield'], function(RollingYield){
+            
+                
+                function async1(callback){
+                    
+                    window.setTimeout(function(){
+                    
+                        callback({
+                            id: 123
+                        });
+                    
+                    }, 100);
+
+                };
+
+                function async2(id, callback){
+
+                    window.setTimeout(function(){
+                    
+                        callback(id + 333);
+                    
+                    }, 100);
+
+                };
+
+                function async3(callback){
+
+                    window.setTimeout(function(){
+                    
+                        callback(999);
+                    
+                    }, 500);
+
+                }
+
+                function* doSomething(X){
+
+                    async1(X('info'));
+                    async3(X('other'));
+                    async3(X(function(other2){
+                        console.log('inner callback run');
+                    }, 'other2'));
+                    
+                    yield 1;
+                    
+                    console.log(X.other);
+                    async2(X.info.id, X('id'));
+                    
+                    yield 2;
+                    
+                    console.log(X.id);
+                    
+                    return 3;
+                }
+
+                var t = new RollingYield(function(t){
+                    console.log('everything is done');
+                    console.log(t);
+                });
+                t.log = true;
+                t.iterator = doSomething(t.instance);
+                t.run();
+            
+            });
+        
+        </script>
+    
+    </body>
+
+</html>

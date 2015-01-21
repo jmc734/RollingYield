@@ -1,0 +1,14 @@
+{
+    "name": "RollingYield",
+    "version": "0.1.0",
+    "author": "Jacob McDonald <jmc734@gmail.com>",
+    "repository": {
+        "type": "git",
+        "url": "github.com:jmc734/RollingYield.git"
+    },
+    "licenses": [{
+        "type": "MIT",
+        "url": "https://github.com/jmc734/RollingYield/blob/master/LICENSE"
+    }]
+
+}
